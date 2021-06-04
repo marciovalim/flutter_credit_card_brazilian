@@ -7,13 +7,13 @@ import 'flutter_credit_card.dart';
 
 class CreditCardForm extends StatefulWidget {
   const CreditCardForm({
-    Key key,
+    Key? key,
     this.cardNumber,
     this.cardName,
     this.expiryDate,
     this.cardHolderName,
     this.cvvCode,
-    @required this.onCreditCardModelChange,
+    required this.onCreditCardModelChange,
     this.themeColor,
     this.textColor = Colors.black,
     this.cursorColor,
@@ -21,15 +21,15 @@ class CreditCardForm extends StatefulWidget {
   })  : assert(localizedText != null),
         super(key: key);
 
-  final String cardNumber;
-  final String cardName;
-  final String expiryDate;
-  final String cardHolderName;
-  final String cvvCode;
-  final void Function(CreditCardModel) onCreditCardModelChange;
-  final Color themeColor;
+  final String? cardNumber;
+  final String? cardName;
+  final String? expiryDate;
+  final String? cardHolderName;
+  final String? cvvCode;
+  final void Function(CreditCardModel?) onCreditCardModelChange;
+  final Color? themeColor;
   final Color textColor;
-  final Color cursorColor;
+  final Color? cursorColor;
   final LocalizedText localizedText;
 
   @override
@@ -37,16 +37,16 @@ class CreditCardForm extends StatefulWidget {
 }
 
 class _CreditCardFormState extends State<CreditCardForm> {
-  String cardNumber;
-  String cardName;
-  String expiryDate;
-  String cardHolderName;
-  String cvvCode;
+  String? cardNumber;
+  String? cardName;
+  String? expiryDate;
+  String? cardHolderName;
+  String? cvvCode;
   bool isCvvFocused = false;
-  Color themeColor;
+  Color? themeColor;
 
-  void Function(CreditCardModel) onCreditCardModelChange;
-  CreditCardModel creditCardModel;
+  late void Function(CreditCardModel?) onCreditCardModelChange;
+  CreditCardModel? creditCardModel;
 
   final MaskedTextController _cardNumberController =
       MaskedTextController(mask: '0000 0000 0000 0000');
@@ -60,7 +60,7 @@ class _CreditCardFormState extends State<CreditCardForm> {
   FocusNode cvvFocusNode = FocusNode();
 
   void textFieldFocusDidChange() {
-    creditCardModel.isCvvFocused = cvvFocusNode.hasFocus;
+    creditCardModel!.isCvvFocused = cvvFocusNode.hasFocus;
     onCreditCardModelChange(creditCardModel);
   }
 
@@ -88,8 +88,8 @@ class _CreditCardFormState extends State<CreditCardForm> {
     _cardNumberController.addListener(() {
       setState(() {
         cardNumber = _cardNumberController.text;
-        creditCardModel.cardName = cardName;
-        creditCardModel.cardNumber = cardNumber;
+        creditCardModel!.cardName = cardName;
+        creditCardModel!.cardNumber = cardNumber;
         onCreditCardModelChange(creditCardModel);
       });
     });
@@ -97,7 +97,7 @@ class _CreditCardFormState extends State<CreditCardForm> {
     _expiryDateController.addListener(() {
       setState(() {
         expiryDate = _expiryDateController.text;
-        creditCardModel.expiryDate = expiryDate;
+        creditCardModel!.expiryDate = expiryDate;
         onCreditCardModelChange(creditCardModel);
       });
     });
@@ -105,7 +105,7 @@ class _CreditCardFormState extends State<CreditCardForm> {
     _cardHolderNameController.addListener(() {
       setState(() {
         cardHolderName = _cardHolderNameController.text;
-        creditCardModel.cardHolderName = cardHolderName;
+        creditCardModel!.cardHolderName = cardHolderName;
         onCreditCardModelChange(creditCardModel);
       });
     });
@@ -113,7 +113,7 @@ class _CreditCardFormState extends State<CreditCardForm> {
     _cvvCodeController.addListener(() {
       setState(() {
         cvvCode = _cvvCodeController.text;
-        creditCardModel.cvvCode = cvvCode;
+        creditCardModel!.cvvCode = cvvCode;
         onCreditCardModelChange(creditCardModel);
       });
     });
@@ -129,7 +129,7 @@ class _CreditCardFormState extends State<CreditCardForm> {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
-        primaryColor: themeColor.withOpacity(0.8),
+        primaryColor: themeColor!.withOpacity(0.8),
         primaryColorDark: themeColor,
       ),
       child: Form(
